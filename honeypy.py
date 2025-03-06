@@ -16,26 +16,32 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    try:
-        if args.ssh:
-            print("[-] Running SSH Honeypot...")
-            honeypot(args.address, args.port, args.username, args.password)
+ try:
+    print(f"Debug: SSH Flag = {args.ssh}, HTTP Flag = {args.http}")  # Debugging output
 
-            if not args.username:
-                username = None
-            if not args.password:
-                password = None
-        elif args.http:
-            print("[-] Running HTTP WordPress Honeypot...")
+    if args.ssh and args.http:
+        print("Error! You cannot run both SSH and HTTP honeypots at the same time. Choose one.")
+    elif args.ssh:
+        print("[-] Running SSH Honeypot...")
+        honeypot(args.address, args.port, args.username, args.password)
 
-            if not args.username:
-                args.username = "admin"
-            if not args.password:
-                args.password = "password"
+        if not args.username:
+            args.username = None
+        if not args.password:
+            args.password = None
+    elif args.http:
+        print("[-] Running HTTP WordPress Honeypot...")
 
-            print(f"Port: {args.port} Username: {args.username} Password: {args.password}")
-            run_web_honeypot(args.port, args.username, args.password)
-        else:
-            print("Error! Choose a particular type (SSH --ssh) or (HTTP --http).")
-    except Exception as e:
-        print("\n Exiting HONEYPY...\n", str(e))
+        if not args.username:
+            args.username = "admin"
+        if not args.password:
+            args.password = "password"
+
+        print(f"Port: {args.port} Username: {args.username} Password: {args.password}")
+        run_web_honeypot(args.port, args.username, args.password)
+
+    else:
+        print("Error! Choose a particular type (SSH --ssh) or (HTTP --http).")
+
+except Exception as e:
+    print("\n Exiting HONEYPY...\n", str(e))
