@@ -15,6 +15,8 @@ if __name__ == "__main__":
     parser.add_argument('-w', "--http", action="store_true")  # Fixed --http
 
     args = parser.parse_args()
+    print(f"Debug: SSH={args.ssh}, HTTP={args.http}")  # Print parsed arguments
+
 
     try:
         # Debugging to check argument values
