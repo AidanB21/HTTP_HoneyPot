@@ -1,7 +1,7 @@
 #import libraries
 import argparse
-from ssh_honeypot import *
-from web_honeypot import *
+from ssh_honeypot import honeypot
+from web_honeypot import run_web_honeypot
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -16,32 +16,32 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
- try:
-    print(f"Debug: SSH Flag = {args.ssh}, HTTP Flag = {args.http}")  # Debugging output
+    try:
+        # Debugging to check argument values
+        print(f"Debug: SSH={args.ssh}, HTTP={args.http}")
 
-    if args.ssh and args.http:
-        print("Error! You cannot run both SSH and HTTP honeypots at the same time. Choose one.")
-    elif args.ssh:
-        print("[-] Running SSH Honeypot...")
-        honeypot(args.address, args.port, args.username, args.password)
+        if args.ssh and args.http:
+            print("Error! You cannot run both SSH and HTTP honeypots at the same time. Choose one.")
+            exit(1)
 
-        if not args.username:
-            args.username = None
-        if not args.password:
-            args.password = None
-    elif args.http:
-        print("[-] Running HTTP WordPress Honeypot...")
+        elif args.ssh:
+            print("[-] Running SSH Honeypot...")
+            honeypot(args.address, args.port, args.username, args.password)
 
-        if not args.username:
-            args.username = "admin"
-        if not args.password:
-            args.password = "password"
+        elif args.http:
+            print("[-] Running HTTP WordPress Honeypot...")
 
-        print(f"Port: {args.port} Username: {args.username} Password: {args.password}")
-        run_web_honeypot(args.port, args.username, args.password)
+            # Set defaults for HTTP honeypot
+            if not args.username:
+                args.username = "admin"
+            if not args.password:
+                args.password = "password"
 
-    else:
-        print("Error! Choose a particular type (SSH --ssh) or (HTTP --http).")
+            print(f"Port: {args.port} | Username: {args.username} | Password: {args.password}")
+            run_web_honeypot(args.port, args.username, args.password)
 
-except Exception as e:
-    print("\n Exiting HONEYPY...\n", str(e))
+        else:
+            print("Error! Choose a particular type (SSH --ssh) or (HTTP --http).")
+
+    except Exception as e:
+        print("\n Exiting HONEYPY...\n", str(e))
