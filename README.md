@@ -2,6 +2,10 @@
 
 
 
+BLOG POST: https://aidans-cybersecurity-blog.hashnode.dev/building-an-ssh-honeypot-with-python-paramiko
+
+
+
 1) Download
 
 Download this repo (or just honeypot_ssh.py) into a folder, e.g. C:\Users\YOU\Desktop\sshoney (Windows) or ~/sshoney (macOS/Linux).
