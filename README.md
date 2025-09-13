@@ -29,6 +29,9 @@ audits.jsonl – connections & auth attempts
 commands.jsonl – every command typed
 
 Open another powershell under the same folder and paste these:
+
+
+
 Get-Content .\logs\audits.jsonl -Wait |
   ForEach-Object {
     try { $_ | ConvertFrom-Json |
@@ -36,6 +39,9 @@ Get-Content .\logs\audits.jsonl -Wait |
       Format-Table -AutoSize
     } catch {}
   }
+
+
+  
 Get-Content .\logs\commands.jsonl -Wait |
   ForEach-Object {
     try { $_ | ConvertFrom-Json |
