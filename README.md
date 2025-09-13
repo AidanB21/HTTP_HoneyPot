@@ -1,3 +1,7 @@
+**Working on HTTP Honeypot, however had some issues getting it to stay up with Hostinger. So just the SSH honeypot demo is available.***
+
+
+
 1) Download
 Download this repo (or just honeypot_ssh.py) into a folder, e.g. C:\Users\YOU\Desktop\sshoney (Windows) or ~/sshoney (macOS/Linux).
 
